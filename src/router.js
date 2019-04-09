@@ -19,16 +19,6 @@ export default new Router({
       component: () => import('./views/Create.vue'),
     },
     {
-      path: '/delete',
-      name: 'delete',
-      component: () => import('./views/Delete.vue'),
-    },
-    {
-      path: '/update',
-      name: 'update',
-      component: () => import('./views/Update.vue'),
-    },
-    {
       path: '/:id',
       name: 'one',
       component: () => import('./views/One.vue'),
