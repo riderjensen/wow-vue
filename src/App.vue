@@ -2,37 +2,40 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <span>WOW</span>
+        <span class="font-weight-light">Mount Finder</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat>
+          <router-link to="/">Home</router-link>
+        </v-btn>
+                <v-btn flat>
+          <router-link to="/about">About</router-link>
+        </v-btn>
+        <v-btn flat>Link Two</v-btn>
+        <v-btn flat>Link Three</v-btn>
+      </v-toolbar-items>
     </v-toolbar>
 
     <v-content>
-      <HelloWorld/>
+      <v-container style="padding: 0; padding-bottom: 20px" fluid fill-height>
+        <v-layout justify-center>
+          <v-flex text-xs-center>
+            <router-view/>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-content>
   </v-app>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  },
-  data () {
+  name: "App",
+  data() {
     return {
       //
-    }
+    };
   }
-}
+};
 </script>
