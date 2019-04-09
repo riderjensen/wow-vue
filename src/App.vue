@@ -12,12 +12,6 @@
         <v-btn flat to="/create">
          Create
         </v-btn>
-        <v-btn flat to="/delete">
-          Delete
-        </v-btn>
-        <v-btn flat to="update">
-          Update
-        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
