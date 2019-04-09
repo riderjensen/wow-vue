@@ -28,5 +28,10 @@ export default new Router({
       name: 'update',
       component: () => import('./views/Update.vue'),
     },
+    {
+      path: '/:id',
+      name: 'one',
+      component: () => import('./views/One.vue'),
+    },
   ],
 });

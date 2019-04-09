@@ -19,7 +19,7 @@
                     <h3 class="headline mb-0">{{item.name}}</h3>
                   </v-card-title>
                   <v-card-actions>
-                    <v-btn class="my-button" flat color="blue">More</v-btn>
+                    <v-btn class="my-button" flat color="blue" :to="item._id">View</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -87,7 +87,7 @@ export default {
     },
     getWater: function() {
       axios
-        .get("https://mighty-lake-67625.herokuapp.com/find/isFlying")
+        .get("https://mighty-lake-67625.herokuapp.com/find/isAquatic")
         .then(resp => {
           this.items = resp.data;
         })
