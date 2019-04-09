@@ -72,22 +72,21 @@
               <v-card-text>
                 <v-form v-model="valid">
                   <v-container>
-                      <v-flex xs12>
-                        <v-text-field v-model="item.name" :rules="nameRules" label="Name" required></v-text-field>
-                      </v-flex>
-
-                      <v-flex xs12>
-                        <v-checkbox v-model="item.isFlying" label="Flying Mount?"></v-checkbox>
-                      </v-flex>
-                      <v-flex xs12>
-                        <v-checkbox v-model="item.isGround" label="Ground Mount?"></v-checkbox>
-                      </v-flex>
-                      <v-flex xs12>
-                        <v-checkbox v-model="item.isJumping" label="Can this mount jump?"></v-checkbox>
-                      </v-flex>
-                      <v-flex xs12>
-                        <v-checkbox v-model="item.isAquatic" label="Can this mount go in water?"></v-checkbox>
-                      </v-flex>
+                    <v-flex xs12>
+                      <v-text-field v-model="item.name" :rules="nameRules" label="Name" required></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-checkbox v-model="item.isFlying" label="Flying Mount?"></v-checkbox>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-checkbox v-model="item.isGround" label="Ground Mount?"></v-checkbox>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-checkbox v-model="item.isJumping" label="Can this mount jump?"></v-checkbox>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-checkbox v-model="item.isAquatic" label="Can this mount go in water?"></v-checkbox>
+                    </v-flex>
                   </v-container>
                 </v-form>
               </v-card-text>
@@ -122,6 +121,8 @@
         <br>
         <br>
         {{error}}
+        {{updated ? 'The item has been updated' : null}}
+        {{deleted ? 'The item has been deleted' : null}}
       </v-flex>
     </v-layout>
   </div>
@@ -138,7 +139,9 @@ export default {
       error: "",
       item: {},
       valid: false,
-      nameRules: [v => !!v || "Name is required"]
+      nameRules: [v => !!v || "Name is required"],
+      updated: false,
+      deleted: false
     };
   },
   created() {
@@ -165,14 +168,25 @@ export default {
           }`
         )
         .then(resp => {
-          console.log(resp);
+          this.deleted = true;
+          this.deleteDialog = false;
         })
         .catch(err => {
           this.error = err;
         });
     },
     updateOne: function() {
-      axios.put
+      axios
+        .put(
+          `http://localhost:5000/edit/${this._routerRoot._route.params.id}`, this.item      
+        )
+        .then(resp => {
+          this.updated = true;
+          this.updateDialog = false;
+        })
+        .catch(err => {
+          this.error = err;
+        });
     }
   }
 };
