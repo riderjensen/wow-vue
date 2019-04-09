@@ -178,7 +178,7 @@ export default {
     updateOne: function() {
       axios
         .put(
-          `http://localhost:5000/edit/${this._routerRoot._route.params.id}`, this.item      
+          `https://mighty-lake-67625.herokuapp.com/edit/${this._routerRoot._route.params.id}`, this.item      
         )
         .then(resp => {
           this.updated = true;
