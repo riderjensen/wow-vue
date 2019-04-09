@@ -1,6 +1,7 @@
 <template>
   <div>
     <Welcome/>
+    <p v-if="error" style="color: red;">{{error}}</p>
     <div>
       <v-btn color="info" v-on:click="getAll()">All</v-btn>
       <v-btn color="success" v-on:click="getFlying()">Flying</v-btn>
@@ -11,8 +12,12 @@
     <v-layout>
       <v-flex xs12 sm10 offset-sm1>
         <v-card>
+                         <v-progress-circular v-if="loading"
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
           <v-container v-bind="{ [`grid-list-md`]: true }" fluid>
-            <v-layout row wrap>
+            <v-layout v-if="!loading" row wrap>
               <v-flex v-for="(item, index) in items" :key="index" xs3>
                 <v-card min-height="100%">
                   <v-card-title primary-title>
@@ -41,7 +46,9 @@ export default {
   },
   data() {
     return {
-      items: []
+      error: '',
+      items: [],
+      loading: true
     };
   },
   created() {
@@ -49,6 +56,7 @@ export default {
       .get("https://mighty-lake-67625.herokuapp.com")
       .then(resp => {
         this.items = resp.data;
+        this.loading = false;
       })
       .catch(err => console.log(err));
   },
@@ -58,40 +66,49 @@ export default {
         .get("https://mighty-lake-67625.herokuapp.com")
         .then(resp => {
           this.items = resp.data;
+          this.loading = false;
         })
-        .catch(err => console.log(err));
+        .catch(err => this.error = err);
     },
     getFlying: function() {
+      this.loading = true;
       axios
         .get("https://mighty-lake-67625.herokuapp.com/find/isFlying")
         .then(resp => {
           this.items = resp.data;
+          this.loading = false;
         })
-        .catch(err => console.log(err));
+        .catch(err => this.error = err);
     },
     getGround: function() {
+      this.loading = true;
       axios
         .get("https://mighty-lake-67625.herokuapp.com/find/isGround")
         .then(resp => {
           this.items = resp.data;
+          this.loading = false;
         })
-        .catch(err => console.log(err));
+        .catch(err => this.error = err);
     },
     getJumping: function() {
+      this.loading = true;
       axios
         .get("https://mighty-lake-67625.herokuapp.com/find/isJumping")
         .then(resp => {
           this.items = resp.data;
+          this.loading = false;
         })
-        .catch(err => console.log(err));
+        .catch(err => this.error = err);
     },
     getWater: function() {
+      this.loading = true;
       axios
         .get("https://mighty-lake-67625.herokuapp.com/find/isAquatic")
         .then(resp => {
           this.items = resp.data;
+          this.loading = false;
         })
-        .catch(err => console.log(err));
+        .catch(err => this.error = err);
     }
   }
 };
