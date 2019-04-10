@@ -80,6 +80,7 @@ export default {
   },
   methods: {
     getAll: function() {
+      this.clearError();
       axios
         .get("https://mighty-lake-67625.herokuapp.com")
         .then(resp => {
@@ -89,6 +90,7 @@ export default {
         .catch(err => (this.error = err));
     },
     getFlying: function() {
+      this.clearError();
       this.loading = true;
       axios
         .get("https://mighty-lake-67625.herokuapp.com/find/isFlying")
@@ -99,6 +101,7 @@ export default {
         .catch(err => (this.error = err));
     },
     getGround: function() {
+      this.clearError();
       this.loading = true;
       axios
         .get("https://mighty-lake-67625.herokuapp.com/find/isGround")
@@ -109,6 +112,7 @@ export default {
         .catch(err => (this.error = err));
     },
     getJumping: function() {
+      this.clearError();
       this.loading = true;
       axios
         .get("https://mighty-lake-67625.herokuapp.com/find/isJumping")
@@ -119,6 +123,7 @@ export default {
         .catch(err => (this.error = err));
     },
     getWater: function() {
+      this.clearError();
       this.loading = true;
       axios
         .get("https://mighty-lake-67625.herokuapp.com/find/isAquatic")
@@ -129,6 +134,7 @@ export default {
         .catch(err => (this.error = err));
     },
     getAllGraphql: function() {
+      this.clearError();
       this.$apollo
         .query({
           query: gql`
@@ -147,6 +153,7 @@ export default {
         });
     },
     getFlyingGraphql: function() {
+      this.clearError();
       this.$apollo
         .query({
           query: gql`
@@ -167,6 +174,7 @@ export default {
         });
     },
     getGroundGraphql: function() {
+      this.clearError();
       this.$apollo
         .query({
           query: gql`
@@ -187,6 +195,7 @@ export default {
         });
     },
     getJumpingGraphql: function() {
+      this.clearError();
       this.$apollo
         .query({
           query: gql`
@@ -207,6 +216,7 @@ export default {
         });
     },
     getWaterGraphql: function() {
+      this.clearError();
       this.$apollo
         .query({
           query: gql`
@@ -226,6 +236,9 @@ export default {
           this.error = err;
         });
     },
+    clearError: function(){
+      this.error = '';
+    }
   }
 };
 </script>
