@@ -64,7 +64,7 @@ export default {
   methods: {
     submitCreate: function() {
       axios.post('https://mighty-lake-67625.herokuapp.com/edit', this.item).then(resp => {
-        console.log(resp)
+        this.error = '<p style="color: green;">Your item has been created</p>';
       }).catch(err => this.error = err)
     }
   }
