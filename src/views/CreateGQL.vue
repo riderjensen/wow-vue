@@ -67,18 +67,29 @@ export default {
       this.$apollo
         .mutate({
           mutation: gql`
-            mutation createMt($name: String, $spellId: Int, $creatureId: Int, $itemId: Int, $qualityId: Int, icon: String, isGround: Bool, isFlying: Bool, isAquatic: Bool, isJumping: Bool){
+            mutation createMt(
+              $name: String
+              $spellId: Int
+              $creatureId: Int
+              $itemId: Int
+              $qualityId: Int
+              $icon: String
+              $isGround: Bool
+              $isFlying: Bool
+              $isAquatic: Bool
+              $isJumping: Bool
+            ) {
               createMount(
                 data: {
-                  name: $name,
-                  icon: $icon,
-                  spellId: $spellId,
-                  creatureId: $creatureId,
-                  itemId: $itemId,
-                  qualityId: $qualityId,
-                  isGround: $isGround,
-                  isFlying: $isFlying,
-                  isAquatic: $isAquatic,
+                  name: $name
+                  icon: $icon
+                  spellId: $spellId
+                  creatureId: $creatureId
+                  itemId: $itemId
+                  qualityId: $qualityId
+                  isGround: $isGround
+                  isFlying: $isFlying
+                  isAquatic: $isAquatic
                   isJumping: $isJumping
                 }
               ) {
@@ -87,16 +98,16 @@ export default {
             }
           `,
           variables: {
-            name: name,
-            icon: icon,
-            spellId: spellId,
-            creatureId: creatureId,
-            itemId: itemId,
-            qualityId: qualityId,
-            isGround: isGround,
-            isFlying: isFlying,
-            isAquatic: isAquatic,
-            isJumping: isJumping
+            name: item.name,
+            icon: item.icon,
+            spellId: item.spellId,
+            creatureId: item.creatureId,
+            itemId: item.itemId,
+            qualityId: item.qualityId,
+            isGround: item.isGround,
+            isFlying: item.isFlying,
+            isAquatic: item.isAquatic,
+            isJumping: item.isJumping
           }
         })
         .then(res => {
