@@ -198,14 +198,14 @@ export default {
       this.$apollo
         .mutate({
           mutation: gql`
-            mutation deleteMt($id: String) {
+            mutation deleteMt($id: ID) {
               deleteMount(where: { _id: $id }) {
                 name
               }
             }
           `,
           variables: {
-            $id: item._id
+            $id: this.item._id
           }
         })
         .then(res => {
@@ -217,16 +217,17 @@ export default {
         });
     },
     updateOneGQL: function() {
+      console.log(this.item)
       this.$apollo
         .mutate({
           mutation: gql`
             mutation updateOne(
-              $id: String
+              $id: ID
               $name: String
-              $isGround: Bool
-              $isFlying: Bool
-              $isAquatic: Bool
-              $isJumping: Bool
+              $isGround: Boolean
+              $isFlying: Boolean
+              $isAquatic: Boolean
+              $isJumping: Boolean
             ) {
               updateMount(
                 data: {
@@ -243,17 +244,18 @@ export default {
             }
           `,
           variables: {
-            $id: item._id,
-            name: item.name,
-            isGround: item.isGround,
-            isFlying: item.isFlying,
-            isAquatic: item.isAquatic,
-            isJumping: item.isJumping
+            id: this.item._id,
+            name: this.item.name,
+            isGround: this.item.isGround,
+            isFlying: this.item.isFlying,
+            isAquatic: this.item.isAquatic,
+            isJumping: this.item.isJumping
           }
         })
         .then(res => {
-          this.deleted = true;
-          this.deleteDialog = false;
+          console.log(res)
+          this.updated = true;
+          this.updateDialog = false;
         })
         .catch(err => {
           this.error = err;
