@@ -58,6 +58,15 @@ export default {
       loading: true
     };
   },
+  created() {
+    axios
+      .get("https://mighty-lake-67625.herokuapp.com")
+      .then(resp => {
+        this.items = resp.data;
+        this.loading = false;
+      })
+      .catch(err => console.log(err));
+  },
   methods: {
     getAll: function() {
       this.clearError();
@@ -115,6 +124,7 @@ export default {
     },
     getAllGraphql: function() {
       this.clearError();
+      this.loading = true;
       this.$apollo
         .query({
           query: gql`
@@ -127,6 +137,7 @@ export default {
         })
         .then(res => {
           this.myItem = res.data;
+          this.loading = false;
         })
         .catch(err => {
           this.error = err;
@@ -134,6 +145,7 @@ export default {
     },
     getFlyingGraphql: function() {
       this.clearError();
+      this.loading = true;
       this.$apollo
         .query({
           query: gql`
@@ -148,6 +160,7 @@ export default {
         })
         .then(res => {
           this.myItem = res.data;
+          this.loading = false;
         })
         .catch(err => {
           this.error = err;
@@ -155,6 +168,7 @@ export default {
     },
     getGroundGraphql: function() {
       this.clearError();
+      this.loading = true;
       this.$apollo
         .query({
           query: gql`
@@ -169,6 +183,7 @@ export default {
         })
         .then(res => {
           this.myItem = res.data;
+          this.loading = false;
         })
         .catch(err => {
           this.error = err;
@@ -176,6 +191,7 @@ export default {
     },
     getJumpingGraphql: function() {
       this.clearError();
+      this.loading = true;
       this.$apollo
         .query({
           query: gql`
@@ -190,6 +206,7 @@ export default {
         })
         .then(res => {
           this.myItem = res.data;
+          this.loading = false;
         })
         .catch(err => {
           this.error = err;
@@ -197,6 +214,7 @@ export default {
     },
     getWaterGraphql: function() {
       this.clearError();
+      this.loading = true;
       this.$apollo
         .query({
           query: gql`
@@ -211,6 +229,7 @@ export default {
         })
         .then(res => {
           this.myItem = res.data;
+          this.loading = false;
         })
         .catch(err => {
           this.error = err;
