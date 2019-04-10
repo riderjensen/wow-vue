@@ -1,7 +1,8 @@
 <template>
   <div class="about">
     <v-form v-model="valid">
-      <v-container>
+      <p v-if="created" style="color: green;">Your item has been created</p>
+      <v-container  v-if="!created">
         {{error}}
         <v-flex xs12>
           <v-text-field v-model="item.name" :rules="nameRules" label="Name" required></v-text-field>
@@ -34,7 +35,7 @@
           <v-checkbox v-model="item.isJumping" label="Jumping mount" required></v-checkbox>
         </v-flex>
       </v-container>
-      <v-btn @click="submitCreate()">Submit</v-btn>
+      <v-btn v-if="!created" @click="submitCreate()">Submit</v-btn>
     </v-form>
   </div>
 </template>
@@ -45,6 +46,7 @@ import axios from "axios";
 export default {
   data: () => ({
     error: '',
+    created: false,
     valid: false,
     item: {
       name: "",
@@ -64,7 +66,7 @@ export default {
   methods: {
     submitCreate: function() {
       axios.post('https://mighty-lake-67625.herokuapp.com/edit', this.item).then(resp => {
-        this.error = '<p style="color: green;">Your item has been created</p>';
+        this.created = true;
       }).catch(err => this.error = err)
     }
   }
