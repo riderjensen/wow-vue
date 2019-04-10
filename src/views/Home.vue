@@ -13,7 +13,7 @@
       <v-btn color="info" v-on:click="getAllGraphql()">GraphQL All</v-btn>
       <v-btn color="success" v-on:click="getFlyingGraphql()">GraphQL Flying</v-btn>
       <v-btn color="error" v-on:click="getGroundGraphql()">GraphQL Ground</v-btn>
-      <v-btn color="warning" v-on:click="getJumpingGraphql()">GraphQLJumping</v-btn>
+      <v-btn color="warning" v-on:click="getJumpingGraphql()">GraphQL Jumping</v-btn>
       <v-btn color="info" v-on:click="getWaterGraphql()">GraphQL Water</v-btn>
     </div>
     <v-layout>
