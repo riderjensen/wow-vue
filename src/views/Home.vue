@@ -39,8 +39,23 @@
 <script>
 import Welcome from "../components/home/Welcome";
 import axios from "axios";
+import gql from 'graphql-tag';
 
 export default {
+  apollo: {
+    // Simple query that will update the 'hello' vue property
+    items: gql`query {
+      mounts {
+        name,
+        icon,
+        isAquatic,
+        isFlying,
+        isGround,
+        isJumping,
+        spellId
+      }
+    }`,
+  },
   components: {
     Welcome
   },
