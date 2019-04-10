@@ -7,7 +7,7 @@
      
       <v-flex mb-4>
         <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
+          Welcome to WOW Mount Finder
         </h1>
       </v-flex>
 
@@ -15,11 +15,6 @@
         mb-5
         xs12
       >
-        <h2 class="headline font-weight-bold mb-3">What's next?</h2>
-
-        <v-layout justify-center>
-          <p>Do the project</p>
-        </v-layout>
       </v-flex>
 
     </v-layout>
