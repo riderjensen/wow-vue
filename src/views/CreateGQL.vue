@@ -64,20 +64,20 @@ export default {
   }),
   methods: {
     submitCreate: function() {
-      this.$apollo
-        .mutate({
+      console.log(this.item)
+      this.$apollo.mutate({
           mutation: gql`
             mutation createMt(
               $name: String
+              $icon: String
               $spellId: Int
               $creatureId: Int
               $itemId: Int
               $qualityId: Int
-              $icon: String
-              $isGround: Bool
-              $isFlying: Bool
-              $isAquatic: Bool
-              $isJumping: Bool
+              $isGround: Boolean
+              $isFlying: Boolean
+              $isAquatic: Boolean
+              $isJumping: Boolean
             ) {
               createMount(
                 data: {
@@ -98,16 +98,16 @@ export default {
             }
           `,
           variables: {
-            name: item.name,
-            icon: item.icon,
-            spellId: item.spellId,
-            creatureId: item.creatureId,
-            itemId: item.itemId,
-            qualityId: item.qualityId,
-            isGround: item.isGround,
-            isFlying: item.isFlying,
-            isAquatic: item.isAquatic,
-            isJumping: item.isJumping
+            name: this.item.name,
+            icon: this.item.icon,
+            spellId: this.item.spellId,
+            creatureId: this.item.creatureId,
+            itemId: this.item.itemId,
+            qualityId: this.item.qualityId,
+            isGround: this.item.isGround,
+            isFlying: this.item.isFlying,
+            isAquatic: this.item.isAquatic,
+            isJumping: this.item.isJumping
           }
         })
         .then(res => {
