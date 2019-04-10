@@ -2,7 +2,7 @@
   <div class="about">
     <v-form v-model="valid">
       <p v-if="created" style="color: green;">Your item has been created</p>
-      <v-container  v-if="!created">
+      <v-container v-if="!created">
         {{error}}
         <v-flex xs12>
           <v-text-field v-model="item.name" :rules="nameRules" label="Name" required></v-text-field>
@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import axios from "axios";
+import gql from "graphql-tag";
 
 export default {
   data: () => ({
-    error: '',
+    error: "",
     created: false,
     valid: false,
     item: {
@@ -60,14 +60,62 @@ export default {
       isAquatic: false,
       isJumping: false
     },
-    nameRules: [v => !!v || "Name is required"],
-    // numberRules: [v => v.isNumber() || "Must be a number"]
+    nameRules: [v => !!v || "Name is required"]
   }),
   methods: {
     submitCreate: function() {
-      axios.post('https://mighty-lake-67625.herokuapp.com/edit', this.item).then(resp => {
-        this.created = true;
-      }).catch(err => this.error = err)
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation createMt(
+              $name: String
+              $spellId: Int
+              $creatureId: Int
+              $itemId: Int
+              $qualityId: Int
+              $icon: String
+              $isGround: Bool
+              $isFlying: Bool
+              $isAquatic: Bool
+              $isJumping: Bool
+            ) {
+              createMount(
+                data: {
+                  name: $name
+                  icon: $icon
+                  spellId: $spellId
+                  creatureId: $creatureId
+                  itemId: $itemId
+                  qualityId: $qualityId
+                  isGround: $isGround
+                  isFlying: $isFlying
+                  isAquatic: $isAquatic
+                  isJumping: $isJumping
+                }
+              ) {
+                name
+              }
+            }
+          `,
+          variables: {
+            name: item.name,
+            icon: item.icon,
+            spellId: item.spellId,
+            creatureId: item.creatureId,
+            itemId: item.itemId,
+            qualityId: item.qualityId,
+            isGround: item.isGround,
+            isFlying: item.isFlying,
+            isAquatic: item.isAquatic,
+            isJumping: item.isJumping
+          }
+        })
+        .then(res => {
+          this.created = true;
+        })
+        .catch(err => {
+          this.error = err;
+        });
     }
   }
 };

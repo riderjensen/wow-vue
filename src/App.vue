@@ -12,6 +12,9 @@
         <v-btn flat to="/create">
          Create
         </v-btn>
+         <v-btn flat to="/createGQL">
+         Create GraphQL
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>

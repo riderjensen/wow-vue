@@ -19,6 +19,11 @@ export default new Router({
       component: () => import('./views/Create.vue'),
     },
     {
+      path: '/createGQL',
+      name: 'createGQL',
+      component: () => import('./views/CreateGQL.vue'),
+    },
+    {
       path: '/:id',
       name: 'one',
       component: () => import('./views/One.vue'),

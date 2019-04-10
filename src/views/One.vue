@@ -95,6 +95,7 @@
                 <v-spacer></v-spacer>
                 <v-btn color="error" flat @click="updateDialog = false">Cancel</v-btn>
                 <v-btn color="primary" flat @click="updateOne()">Update</v-btn>
+                <v-btn color="primary" flat @click="updateOneGQL()">Update w/ GQL</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -113,6 +114,7 @@
                 <v-spacer></v-spacer>
                 <v-btn color="error" flat @click="deleteDialog = false">Cancel</v-btn>
                 <v-btn color="primary" flat @click="deleteOne()">Delete</v-btn>
+                <v-btn color="primary" flat @click="deleteOneGQL()">Delete w/ GQL</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -130,6 +132,7 @@
 
 <script>
 import axios from "axios";
+import gql from "graphql-tag";
 
 export default {
   data() {
@@ -178,11 +181,79 @@ export default {
     updateOne: function() {
       axios
         .put(
-          `https://mighty-lake-67625.herokuapp.com/edit/${this._routerRoot._route.params.id}`, this.item      
+          `https://mighty-lake-67625.herokuapp.com/edit/${
+            this._routerRoot._route.params.id
+          }`,
+          this.item
         )
         .then(resp => {
           this.updated = true;
           this.updateDialog = false;
+        })
+        .catch(err => {
+          this.error = err;
+        });
+    },
+    deleteOneGQL: function() {
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation deleteMt($id: String) {
+              deleteMount(where: { _id: $id }) {
+                name
+              }
+            }
+          `,
+          variables: {
+            $id: item._id
+          }
+        })
+        .then(res => {
+          this.deleted = true;
+          this.deleteDialog = false;
+        })
+        .catch(err => {
+          this.error = err;
+        });
+    },
+    updateOneGQL: function() {
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation updateOne(
+              $id: String
+              $name: String
+              $isGround: Bool
+              $isFlying: Bool
+              $isAquatic: Bool
+              $isJumping: Bool
+            ) {
+              updateMount(
+                data: {
+                  name: $name
+                  isGround: $isGround
+                  isFlying: $isFlying
+                  isAquatic: $isAquatic
+                  isJumping: $isJumping
+                }
+                where: { _id: $id }
+              ) {
+                name
+              }
+            }
+          `,
+          variables: {
+            $id: item._id,
+            name: item.name,
+            isGround: item.isGround,
+            isFlying: item.isFlying,
+            isAquatic: item.isAquatic,
+            isJumping: item.isJumping
+          }
+        })
+        .then(res => {
+          this.deleted = true;
+          this.deleteDialog = false;
         })
         .catch(err => {
           this.error = err;
