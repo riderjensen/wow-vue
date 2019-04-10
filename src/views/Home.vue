@@ -8,14 +8,12 @@
       <v-btn color="error" v-on:click="getGround()">Ground</v-btn>
       <v-btn color="warning" v-on:click="getJumping()">Jumping</v-btn>
       <v-btn color="info" v-on:click="getWater()">Water</v-btn>
+      <v-btn color="info" v-on:click="getAllGraphql()">GraphQL</v-btn>
     </div>
     <v-layout>
       <v-flex xs12 sm10 offset-sm1>
         <v-card>
-                         <v-progress-circular v-if="loading"
-      indeterminate
-      color="primary"
-    ></v-progress-circular>
+          <v-progress-circular v-if="loading" indeterminate color="primary"></v-progress-circular>
           <v-container v-bind="{ [`grid-list-md`]: true }" fluid>
             <v-layout v-if="!loading" row wrap>
               <v-flex v-for="(item, index) in items" :key="index" xs3>
@@ -39,41 +37,19 @@
 <script>
 import Welcome from "../components/home/Welcome";
 import axios from "axios";
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export default {
-  apollo: {
-    // Simple query that will update the 'hello' vue property
-    items: gql`query {
-      mounts {
-        name,
-        icon,
-        isAquatic,
-        isFlying,
-        isGround,
-        isJumping,
-        spellId
-      }
-    }`,
-  },
   components: {
     Welcome
   },
   data() {
     return {
-      error: '',
+      skipQuery: true,
+      error: "",
       items: [],
       loading: true
     };
-  },
-  created() {
-    axios
-      .get("https://mighty-lake-67625.herokuapp.com")
-      .then(resp => {
-        this.items = resp.data;
-        this.loading = false;
-      })
-      .catch(err => console.log(err));
   },
   methods: {
     getAll: function() {
@@ -83,7 +59,7 @@ export default {
           this.items = resp.data;
           this.loading = false;
         })
-        .catch(err => this.error = err);
+        .catch(err => (this.error = err));
     },
     getFlying: function() {
       this.loading = true;
@@ -93,7 +69,7 @@ export default {
           this.items = resp.data;
           this.loading = false;
         })
-        .catch(err => this.error = err);
+        .catch(err => (this.error = err));
     },
     getGround: function() {
       this.loading = true;
@@ -103,7 +79,7 @@ export default {
           this.items = resp.data;
           this.loading = false;
         })
-        .catch(err => this.error = err);
+        .catch(err => (this.error = err));
     },
     getJumping: function() {
       this.loading = true;
@@ -113,7 +89,7 @@ export default {
           this.items = resp.data;
           this.loading = false;
         })
-        .catch(err => this.error = err);
+        .catch(err => (this.error = err));
     },
     getWater: function() {
       this.loading = true;
@@ -123,7 +99,28 @@ export default {
           this.items = resp.data;
           this.loading = false;
         })
-        .catch(err => this.error = err);
+        .catch(err => (this.error = err));
+    },
+    getAllGraphql: function() {
+     this.$apollo
+        .query({
+          query: gql`
+             query {
+        mounts {
+          name
+          icon
+          isAquatic
+          isFlying
+          isGround
+          isJumping
+          spellId
+        }
+      }
+          `
+        })
+        .then(res => {
+          this.characterData = res.data.owcharacters;
+        });
     }
   }
 };
