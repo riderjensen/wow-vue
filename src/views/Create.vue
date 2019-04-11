@@ -9,6 +9,8 @@
         </v-flex>
         <v-flex xs12>
           <v-text-field v-model="item.icon" :rules="nameRules" label="Icon" required></v-text-field>
+                    <br />
+          <p>Browse all the possible icons <a target="_blank" href="https://wow.gamepedia.com/Wowpedia:WoW_Icons">here</a>.</p>
         </v-flex>
         <v-flex xs12>
           <v-text-field v-model="item.spellId" label="Spell ID" required></v-text-field>
@@ -65,6 +67,7 @@ export default {
   }),
   methods: {
     submitCreate: function() {
+      this.item.icon = this.item.icon.toLowerCase();
       axios.post('https://mighty-lake-67625.herokuapp.com/edit', this.item).then(resp => {
         this.created = true;
       }).catch(err => this.error = err)
