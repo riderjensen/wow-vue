@@ -2,7 +2,7 @@
   <div class="about" style="max-width: 400px; margin: 50px auto;">
     <v-layout row wrap>
       <v-flex xs12>
-        <v-card>
+        <v-card v-if="!deleted">
           <v-layout>
             <v-flex xs5>
               <v-img
@@ -61,7 +61,7 @@
           </v-card-actions>
         </v-card>
 
-        <div class="text-xs-center">
+        <div v-if="!deleted" class="text-xs-center">
           <v-dialog v-model="updateDialog" width="500">
             <template v-slot:activator="{ on }">
               <v-btn color="warning" v-on="on">Update</v-btn>
@@ -100,7 +100,7 @@
             </v-card>
           </v-dialog>
         </div>
-        <div class="text-xs-center">
+        <div v-if="!deleted" class="text-xs-center">
           <v-dialog v-model="deleteDialog" width="500">
             <template v-slot:activator="{ on }">
               <v-btn color="error" v-on="on">Delete</v-btn>
