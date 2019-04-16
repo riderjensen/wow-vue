@@ -42,87 +42,87 @@
 </template>
 
 <script>
-import Welcome from "../components/home/Welcome";
-import axios from "axios";
-import gql from "graphql-tag";
+import axios from 'axios';
+import gql from 'graphql-tag';
+import Welcome from '../components/home/Welcome';
 
 export default {
   components: {
-    Welcome
+    Welcome,
   },
   data() {
     return {
       skipQuery: true,
-      error: "",
+      error: '',
       items: [],
-      loading: true
+      loading: true,
     };
   },
   created() {
     axios
-      .get("https://mighty-lake-67625.herokuapp.com")
-      .then(resp => {
+      .get('https://mighty-lake-67625.herokuapp.com')
+      .then((resp) => {
         this.items = resp.data;
         this.loading = false;
       })
       .catch(err => console.log(err));
   },
   methods: {
-    getAll: function() {
+    getAll() {
       this.clearError();
       axios
-        .get("https://mighty-lake-67625.herokuapp.com")
-        .then(resp => {
+        .get('https://mighty-lake-67625.herokuapp.com')
+        .then((resp) => {
           this.items = resp.data;
           this.loading = false;
         })
         .catch(err => (this.error = err));
     },
-    getFlying: function() {
-      this.clearError();
-      this.loading = true;
-      axios
-        .get("https://mighty-lake-67625.herokuapp.com/find/isFlying")
-        .then(resp => {
-          this.items = resp.data;
-          this.loading = false;
-        })
-        .catch(err => (this.error = err));
-    },
-    getGround: function() {
+    getFlying() {
       this.clearError();
       this.loading = true;
       axios
-        .get("https://mighty-lake-67625.herokuapp.com/find/isGround")
-        .then(resp => {
+        .get('https://mighty-lake-67625.herokuapp.com/find/isFlying')
+        .then((resp) => {
           this.items = resp.data;
           this.loading = false;
         })
         .catch(err => (this.error = err));
     },
-    getJumping: function() {
+    getGround() {
       this.clearError();
       this.loading = true;
       axios
-        .get("https://mighty-lake-67625.herokuapp.com/find/isJumping")
-        .then(resp => {
+        .get('https://mighty-lake-67625.herokuapp.com/find/isGround')
+        .then((resp) => {
           this.items = resp.data;
           this.loading = false;
         })
         .catch(err => (this.error = err));
     },
-    getWater: function() {
+    getJumping() {
       this.clearError();
       this.loading = true;
       axios
-        .get("https://mighty-lake-67625.herokuapp.com/find/isAquatic")
-        .then(resp => {
+        .get('https://mighty-lake-67625.herokuapp.com/find/isJumping')
+        .then((resp) => {
           this.items = resp.data;
           this.loading = false;
         })
         .catch(err => (this.error = err));
     },
-    getAllGraphql: function() {
+    getWater() {
+      this.clearError();
+      this.loading = true;
+      axios
+        .get('https://mighty-lake-67625.herokuapp.com/find/isAquatic')
+        .then((resp) => {
+          this.items = resp.data;
+          this.loading = false;
+        })
+        .catch(err => (this.error = err));
+    },
+    getAllGraphql() {
       this.clearError();
       this.loading = true;
       this.$apollo
@@ -133,17 +133,17 @@ export default {
                 name
               }
             }
-          `
+          `,
         })
-        .then(res => {
+        .then((res) => {
           this.myItem = res.data;
           this.loading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
     },
-    getFlyingGraphql: function() {
+    getFlyingGraphql() {
       this.clearError();
       this.loading = true;
       this.$apollo
@@ -156,17 +156,17 @@ export default {
                 name
               }
             }
-          `
+          `,
         })
-        .then(res => {
+        .then((res) => {
           this.myItem = res.data;
           this.loading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
     },
-    getGroundGraphql: function() {
+    getGroundGraphql() {
       this.clearError();
       this.loading = true;
       this.$apollo
@@ -179,17 +179,17 @@ export default {
                 name
               }
             }
-          `
+          `,
         })
-        .then(res => {
+        .then((res) => {
           this.myItem = res.data;
           this.loading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
     },
-    getJumpingGraphql: function() {
+    getJumpingGraphql() {
       this.clearError();
       this.loading = true;
       this.$apollo
@@ -202,17 +202,17 @@ export default {
                 name
               }
             }
-          `
+          `,
         })
-        .then(res => {
+        .then((res) => {
           this.myItem = res.data;
           this.loading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
     },
-    getWaterGraphql: function() {
+    getWaterGraphql() {
       this.clearError();
       this.loading = true;
       this.$apollo
@@ -225,20 +225,20 @@ export default {
                 name
               }
             }
-          `
+          `,
         })
-        .then(res => {
+        .then((res) => {
           this.myItem = res.data;
           this.loading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
     },
-    clearError: function(){
+    clearError() {
       this.error = '';
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -260,4 +260,3 @@ h3 {
   margin-bottom: 40px;
 }
 </style>
-
