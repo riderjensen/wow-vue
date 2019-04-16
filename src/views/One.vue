@@ -131,20 +131,20 @@
 </template>
 
 <script>
-import axios from "axios";
-import gql from "graphql-tag";
+import axios from 'axios';
+import gql from 'graphql-tag';
 
 export default {
   data() {
     return {
       deleteDialog: false,
       updateDialog: false,
-      error: "",
+      error: '',
       item: {},
       valid: false,
-      nameRules: [v => !!v || "Name is required"],
+      nameRules: [v => !!v || 'Name is required'],
       updated: false,
-      deleted: false
+      deleted: false,
     };
   },
   created() {
@@ -152,49 +152,49 @@ export default {
       .get(
         `https://mighty-lake-67625.herokuapp.com/find/${
           this._routerRoot._route.params.id
-        }`
+        }`,
       )
-      .then(resp => {
+      .then((resp) => {
         console.log(resp.data);
         this.item = resp.data;
       })
-      .catch(err => {
+      .catch((err) => {
         this.error = err;
       });
   },
   methods: {
-    deleteOne: function() {
+    deleteOne() {
       axios
         .delete(
           `https://mighty-lake-67625.herokuapp.com/edit/${
             this._routerRoot._route.params.id
-          }`
+          }`,
         )
-        .then(resp => {
+        .then((resp) => {
           this.deleted = true;
           this.deleteDialog = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
     },
-    updateOne: function() {
+    updateOne() {
       axios
         .put(
           `https://mighty-lake-67625.herokuapp.com/edit/${
             this._routerRoot._route.params.id
           }`,
-          this.item
+          this.item,
         )
-        .then(resp => {
+        .then((resp) => {
           this.updated = true;
           this.updateDialog = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
     },
-    deleteOneGQL: function() {
+    deleteOneGQL() {
       this.$apollo
         .mutate({
           mutation: gql`
@@ -205,19 +205,19 @@ export default {
             }
           `,
           variables: {
-            $id: this.item._id
-          }
+            $id: this.item._id,
+          },
         })
-        .then(res => {
+        .then((res) => {
           this.deleted = true;
           this.deleteDialog = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
     },
-    updateOneGQL: function() {
-      console.log(this.item)
+    updateOneGQL() {
+      console.log(this.item);
       this.$apollo
         .mutate({
           mutation: gql`
@@ -249,19 +249,19 @@ export default {
             isGround: this.item.isGround,
             isFlying: this.item.isFlying,
             isAquatic: this.item.isAquatic,
-            isJumping: this.item.isJumping
-          }
+            isJumping: this.item.isJumping,
+          },
         })
-        .then(res => {
-          console.log(res)
+        .then((res) => {
+          console.log(res);
           this.updated = true;
           this.updateDialog = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

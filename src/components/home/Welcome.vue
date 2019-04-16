@@ -4,7 +4,7 @@
       text-xs-center
       wrap
     >
-     
+
       <v-flex mb-4>
         <h1 class="display-2 font-weight-bold mb-3">
           Welcome to WOW Mount Finder
@@ -22,11 +22,11 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
+export default {
+  data: () => ({
 
-    })
-  }
+  }),
+};
 </script>
 
 <style>

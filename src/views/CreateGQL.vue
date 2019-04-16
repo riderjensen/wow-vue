@@ -43,16 +43,16 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export default {
   data: () => ({
-    error: "",
+    error: '',
     created: false,
     valid: false,
     item: {
-      name: "",
-      icon: "",
+      name: '',
+      icon: '',
       spellId: 0,
       creatureId: 0,
       itemId: 0,
@@ -60,15 +60,15 @@ export default {
       isGround: false,
       isFlying: false,
       isAquatic: false,
-      isJumping: false
+      isJumping: false,
     },
-    nameRules: [v => !!v || "Name is required"]
+    nameRules: [v => !!v || 'Name is required'],
   }),
   methods: {
-    submitCreate: function() {
+    submitCreate() {
       this.item.icon = this.item.icon.toLowerCase();
       this.$apollo.mutate({
-          mutation: gql`
+        mutation: gql`
             mutation createMt(
               $name: String
               $icon: String
@@ -99,26 +99,26 @@ export default {
               }
             }
           `,
-          variables: {
-            name: this.item.name,
-            icon: this.item.icon,
-            spellId: this.item.spellId,
-            creatureId: this.item.creatureId,
-            itemId: this.item.itemId,
-            qualityId: this.item.qualityId,
-            isGround: this.item.isGround,
-            isFlying: this.item.isFlying,
-            isAquatic: this.item.isAquatic,
-            isJumping: this.item.isJumping
-          }
-        })
-        .then(res => {
+        variables: {
+          name: this.item.name,
+          icon: this.item.icon,
+          spellId: this.item.spellId,
+          creatureId: this.item.creatureId,
+          itemId: this.item.itemId,
+          qualityId: this.item.qualityId,
+          isGround: this.item.isGround,
+          isFlying: this.item.isFlying,
+          isAquatic: this.item.isAquatic,
+          isJumping: this.item.isJumping,
+        },
+      })
+        .then((res) => {
           this.created = true;
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err;
         });
-    }
-  }
+    },
+  },
 };
 </script>
