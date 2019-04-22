@@ -8,7 +8,6 @@
       <v-btn color="error" v-on:click="getGround()">Ground</v-btn>
       <v-btn color="warning" v-on:click="getJumping()">Jumping</v-btn>
       <v-btn color="info" v-on:click="getWater()">Water</v-btn>
-      <v-btn color="info" v-on:click="getAllGraphql()">GraphQL</v-btn>
     </div>
     <div>
       <v-btn color="info" v-on:click="getAllGraphql()">GraphQL All</v-btn>
