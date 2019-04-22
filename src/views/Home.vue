@@ -3,18 +3,18 @@
     <Welcome/>
     <p v-if="error" style="color: red;">{{error}}</p>
     <div>
-      <v-btn color="info" v-on:click="getAll()">All</v-btn>
-      <v-btn color="success" v-on:click="getFlying()">Flying</v-btn>
-      <v-btn color="error" v-on:click="getGround()">Ground</v-btn>
-      <v-btn color="warning" v-on:click="getJumping()">Jumping</v-btn>
-      <v-btn color="info" v-on:click="getWater()">Water</v-btn>
+      <v-btn color="info" @click="getAll">All</v-btn>
+      <v-btn color="success" @click="getFlying">Flying</v-btn>
+      <v-btn color="error" @click="getGround">Ground</v-btn>
+      <v-btn color="warning" @click="getJumping">Jumping</v-btn>
+      <v-btn color="info" @click="getWater">Water</v-btn>
     </div>
     <div>
-      <v-btn color="info" v-on:click="getAllGraphql()">GraphQL All</v-btn>
-      <v-btn color="success" v-on:click="getFlyingGraphql()">GraphQL Flying</v-btn>
-      <v-btn color="error" v-on:click="getGroundGraphql()">GraphQL Ground</v-btn>
-      <v-btn color="warning" v-on:click="getJumpingGraphql()">GraphQL Jumping</v-btn>
-      <v-btn color="info" v-on:click="getWaterGraphql()">GraphQL Water</v-btn>
+      <v-btn color="info" @click="getAllGraphql">GraphQL All</v-btn>
+      <v-btn color="success" @click="getFlyingGraphql">GraphQL Flying</v-btn>
+      <v-btn color="error" @click="getGroundGraphql">GraphQL Ground</v-btn>
+      <v-btn color="warning" @click="getJumpingGraphql">GraphQL Jumping</v-btn>
+      <v-btn color="info" @click="getWaterGraphql">GraphQL Water</v-btn>
     </div>
     <v-layout>
       <v-flex xs12 sm10 offset-sm1>
@@ -67,7 +67,8 @@ export default {
       .catch(err => console.log(err));
   },
   methods: {
-    getAll() {
+    getAll: function() {
+          this.loading = true;
       this.clearError();
       axios
         .get('https://mighty-lake-67625.herokuapp.com')
@@ -77,7 +78,7 @@ export default {
         })
         .catch(err => (this.error = err));
     },
-    getFlying() {
+    getFlying: function() {
       this.clearError();
       this.loading = true;
       axios
@@ -88,7 +89,7 @@ export default {
         })
         .catch(err => (this.error = err));
     },
-    getGround() {
+    getGround: function() {
       this.clearError();
       this.loading = true;
       axios
@@ -99,7 +100,7 @@ export default {
         })
         .catch(err => (this.error = err));
     },
-    getJumping() {
+    getJumping: function() {
       this.clearError();
       this.loading = true;
       axios
@@ -110,7 +111,7 @@ export default {
         })
         .catch(err => (this.error = err));
     },
-    getWater() {
+    getWater: function() {
       this.clearError();
       this.loading = true;
       axios
@@ -121,7 +122,7 @@ export default {
         })
         .catch(err => (this.error = err));
     },
-    getAllGraphql() {
+    getAllGraphql: function() {
       this.clearError();
       this.loading = true;
       this.$apollo
@@ -142,7 +143,7 @@ export default {
           this.error = err;
         });
     },
-    getFlyingGraphql() {
+    getFlyingGraphql: function() {
       this.clearError();
       this.loading = true;
       this.$apollo
@@ -165,7 +166,7 @@ export default {
           this.error = err;
         });
     },
-    getGroundGraphql() {
+    getGroundGraphql: function() {
       this.clearError();
       this.loading = true;
       this.$apollo
@@ -188,7 +189,7 @@ export default {
           this.error = err;
         });
     },
-    getJumpingGraphql() {
+    getJumpingGraphql: function() {
       this.clearError();
       this.loading = true;
       this.$apollo
@@ -211,7 +212,7 @@ export default {
           this.error = err;
         });
     },
-    getWaterGraphql() {
+    getWaterGraphql: function() {
       this.clearError();
       this.loading = true;
       this.$apollo
