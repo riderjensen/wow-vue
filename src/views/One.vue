@@ -155,7 +155,6 @@ export default {
         }`,
       )
       .then((resp) => {
-        console.log(resp.data);
         this.item = resp.data;
       })
       .catch((err) => {
@@ -198,14 +197,14 @@ export default {
       this.$apollo
         .mutate({
           mutation: gql`
-            mutation deleteMt($id: ID) {
+            mutation delete($id: ID) {
               deleteMount(where: { _id: $id }) {
-                name
+                _id
               }
             }
           `,
           variables: {
-            $id: this.item._id,
+            id: this.item._id,
           },
         })
         .then((res) => {
@@ -217,7 +216,6 @@ export default {
         });
     },
     updateOneGQL() {
-      console.log(this.item);
       this.$apollo
         .mutate({
           mutation: gql`
